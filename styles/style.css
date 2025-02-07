@@ -1,18 +1,19 @@
 :root {
-    --sky: #02ccfe;
+    --sky: linear-gradient(1deg, #00d4ff , #4444c4 ); 
     --grass: #3f9b0b;
     --sun: yellow;
-    --moon: grey;
+    --moon: rgb(212, 212, 212); 
 }
 
-.darkmode {
-    --sky: #131862;
+body:has(#darkmode:checked) {
+    --sky: linear-gradient(rgb(9, 9, 29), #131862) ;
 }
 
 body {
+    height: 100vh;
     margin: 0;
-    background-color: var(--sky);
-    /* background-image: linear-gradient(lightskyblue, midnightblue); */
+    background: var(--sky);
+    overflow: hidden;
 }
 
 section {
@@ -24,67 +25,45 @@ section {
     background-color: var(--grass);
 }
 
-.dl {
+/*** darkmode switch ***/
+
+#darkmode {
+    display: none;
+}
+
+label {
     display: flex;
+    margin: 1em 0 0 1em;
     width: 4em;
     height: 4em;
-    border: none;
-    background: none;
     align-items: center;
     justify-content: center;
-    position: relative;
     cursor: pointer;
+    position: relative;
 }
 
 svg {
-    width: 30px;
-    height: 30px;
     position: absolute;
-    transition: opacity 0.3s ease;
-}
-
-.moon {
-    opacity: 0;
-}
-
-/* Wanneer dark mode actief is */
-.darkmode .sun {
-    opacity: 0;
-}
-
-.darkmode .moon {
-    opacity: 1;
-}
-
-
-/* .dl {
-    display: flex;
     width: 4em;
     height: 4em;
-    border: none;
-    background: none;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-} */
-
-/* .sun {
-    position: absolute;
-    fill: var(--sun);
-    width: 4em;
-    height: 4em;
+    transition: opacity 0.3s ease, transform 0.5s ease-in-out;
 }
 
-.moon {
+#moon {
+    opacity: 0;
     fill: var(--moon);
-    width: 4em;
-    height: 4em;
-} */
+}
 
-/* 
-@media (prefers-color-scheme: dark) {
+#sun {
+    fill: var(--sun);
+}
 
-    body {
-        background-color: var(--skyNight);
-    }
-} */
+body:has(#darkmode:checked) #sun {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+body:has(#darkmode:checked) #moon {
+    opacity: 1;
+    transform: rotate(360deg);
+}

@@ -1,8 +1,8 @@
 
-var myButton = document.querySelector("button");
+// var myButton = document.querySelector("button");
 
-function toggleDark () {
-document.body.classList.toggle("darkmode");
-}
+// function toggleDark () {
+// document.body.classList.toggle("darkmode");
+// }
 
-myButton.addEventListener("click", toggleDark);
+// myButton.addEventListener("click", toggleDark);
