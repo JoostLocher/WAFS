@@ -1,0 +1,90 @@
+:root {
+    --sky: #02ccfe;
+    --grass: #3f9b0b;
+    --sun: yellow;
+    --moon: grey;
+}
+
+.darkmode {
+    --sky: #131862;
+}
+
+body {
+    margin: 0;
+    background-color: var(--sky);
+    /* background-image: linear-gradient(lightskyblue, midnightblue); */
+}
+
+section {
+    display: flex;
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    bottom: 0;
+    background-color: var(--grass);
+}
+
+.dl {
+    display: flex;
+    width: 4em;
+    height: 4em;
+    border: none;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+svg {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    transition: opacity 0.3s ease;
+}
+
+.moon {
+    opacity: 0;
+}
+
+/* Wanneer dark mode actief is */
+.darkmode .sun {
+    opacity: 0;
+}
+
+.darkmode .moon {
+    opacity: 1;
+}
+
+
+/* .dl {
+    display: flex;
+    width: 4em;
+    height: 4em;
+    border: none;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+} */
+
+/* .sun {
+    position: absolute;
+    fill: var(--sun);
+    width: 4em;
+    height: 4em;
+}
+
+.moon {
+    fill: var(--moon);
+    width: 4em;
+    height: 4em;
+} */
+
+/* 
+@media (prefers-color-scheme: dark) {
+
+    body {
+        background-color: var(--skyNight);
+    }
+} */
