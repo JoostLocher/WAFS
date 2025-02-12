@@ -1,89 +1,57 @@
-console.log(THREE); // Check if Three.js is loaded
+const baseURL = 'https://fdnd.directus.app/';
+const endpointMe = 'items/person/207';
 
-// scene
-const scene = new THREE.Scene();
-// scene.add(new THREE.AxesHelper(5)); // axes helper
+const myURL = baseURL + endpointMe;
 
-// light
-const light = new THREE.PointLight(0xffffff, 0.1);
-// light.position.set(0.8, 1.4, 1.0);
-scene.add(light);
-
-
-const ambientLight = new THREE.AmbientLight();
-scene.add(ambientLight);
-
-// camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(3, 1.5, 1.0);
-
-// render
-const canvasWebgl = document.querySelector(".canvasWebgl");
-// const renderer = new THREE.WebGLRenderer({ canvas: canvasWebgl });
-// renderer.setSize(window.innerWidth, window.innerHeight);
-const renderer = new THREE.WebGLRenderer({ 
-    canvas: canvasWebgl, 
-    alpha: true 
-  });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0x000000, 0); // background trancparent
+const cloud1 = document.querySelector('.speed1 p');
+const cloud2 = document.querySelector('.speed2 p');
+const cloud3 = document.querySelector('.speed3 p');
+const cloud4 = document.querySelector('.speed4 p');
+const cloud5 = document.querySelector('.speed5 p');
 
 
+getData(myURL).then( data207 => {
+    
+    const myData = data207.data;
+    const myCustom = JSON.parse(myData.custom);
 
-// controls
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.target.set(0, 1, 0);
-controls.enableZoom = false;
+    // let myName = myData.name;
+    let myCity = myCustom.woonplaats;
+    let myNickname = myData.nickname;
+    let mySport = myCustom.sport;
+    let myColor = myCustom.fav_kleur;
+    let myFilm = myCustom.fav_films;
 
-//  fbx loader
-let model;
+    cloud1.textContent = myCity;
+    cloud2.textContent = myColor;
+    cloud3.textContent = myNickname;
+    cloud4.textContent = mySport;
+    cloud5.textContent = myFilm;
+    });
 
-const fbxLoader = new THREE.FBXLoader();
-fbxLoader.load(
-  "models/flowerRough.fbx",
-  (object) => {
-    object.scale.set(0.005, 0.005, 0.005);
-    scene.add(object);
-    model = object;
-  },
-  (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
-  (error) => console.log(error)
-);
 
-// const stats = new Stats();
-// document.body.appendChild(stats.dom);
 
-window.addEventListener("resize", onWindowResize, false);
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-let rotationSpeed = 0.008; // Initial rotation speed
-
-window.addEventListener("wheel", (event) => {
-  if (model) {
-    rotationSpeed += event.deltaY * 0.0005; // Adjust multiplier for sensitivity
-  }
-});
-
-function animate() {
-    requestAnimationFrame(animate);
-
-    if (model) {
-      model.rotation.y += rotationSpeed; // Apply rotation speed
-      rotationSpeed *= 0.95; // Add friction to slow down over time
-      if (Math.abs(rotationSpeed) < 0.008) rotationSpeed = 0.008; // Ensure it never stops completely
+    async function getData(URL) {
+        return (
+            fetch(URL)
+            .then (
+                response => response.json()
+            )
+            .then (
+                jsonData => {return jsonData}
+            )
+        );
     }
 
+    // flower no hover // 
 
-    light.position.copy(camera.position).add(new THREE.Vector3(0.8, 1.4, 0));
-
-  controls.update();
-  renderer.render(scene, camera);
-//   stats.update(); 
-}
-
-animate();
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.matchMedia("(hover: none)").matches) {
+            document.querySelectorAll(".stem").forEach(stem => {
+                stem.addEventListener("click", function () {
+                    this.classList.toggle("active");
+                });
+            });
+        }
+    });
+    

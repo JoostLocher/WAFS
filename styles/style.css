@@ -3,30 +3,31 @@
 
 :root {
     --light: oklch(94.01% 0.0222 80.69);
-    --dark: #1A1423;
+    --dark: oklch(8.24% 0.0721 266.98);
     --blue: oklch(50.39% 0.2196 273.78);
-    --green: #00AF54;
-    --lila: #e2a0ff;
-    --sky: linear-gradient(1deg, oklch(94.01% 0.0222 80.69), oklch(50.39% 0.2196 273.78) 80%);
+    --green: oklch(65.95% 0.1783 150.78);
+    --lila: oklch(80.22% 0.1469 315.09);
+    --sky: linear-gradient( oklch(50.39% 0.2196 273.78) 30%, oklch(94.01% 0.0222 80.69));
 
     /*typografie*/
     --h1:2em;
+    --h2:1.5em;
 }
 
 body:has(#darkmode:checked) {
-    --sky: linear-gradient( var(--dark), var(--blue));
-
+    --sky: linear-gradient(oklch(13.73% 0.2292 290.52), oklch(50.39% 0.2196 273.78) 80%);
 }
 
 body {
     height: 100vh;
     margin: 0;
     background: var(--sky);
-    overflow: hidden;
+    overflow: hidden; 
     font-family: "Orbitron", serif;
     font-weight: 900;
     color: var(--dark);
 }
+
 
 a {
     text-decoration: none;
@@ -55,6 +56,7 @@ nav a {
     font-style: italic;
     color: var(--dark);
     box-shadow: 2px 5px 0 var(--dark);
+    padding: 5px;
 }
 
 h1 {
@@ -70,17 +72,7 @@ h1 {
     text-shadow: 3px 5px 0 var(--dark);
 }
 
-
-#ground {
-    display: flex;
-    position: fixed;
-    height: 100px;
-    width: 100%;
-    bottom: 0;
-    background-color: var(--green);
-}
-
-/*** darkmode switch ***/
+/*** darkmode switch ***/ /*bron icon switch: https://www.youtube.com/watch?v=_gKEUYarehE&ab_channel=Coding2GO, icons: https://fonts.google.com/icons*/
 
 #darkmode {
     display: none;
@@ -123,15 +115,15 @@ body:has(#darkmode:checked) #moon {
     transform: rotate(360deg);
 }
 
-/*** clouds ***/
+/*** clouds ***/ /*bron: https://codepen.io/Mark_Bowley/pen/LYZEBq*/
 
 #backgroundClouds {
     bottom: 0;
 	left: 0;
-	padding-top: 50px;
+	/* padding-top: 50px; */
 	position: fixed;
 	right: 0;
-	top: 5em;
+	top: 9em;
 	z-index: -1;
 }
 
@@ -204,25 +196,168 @@ p {
 }
 
 .speed2 {
-    animation: animateCloud 30s linear infinite;
-    animation-delay: 6s;
+    animation: animateCloud 35s linear infinite;
+    animation-delay: 15s;
     transform: scale(0.5);
 }
 
 .speed3 {
-    animation: animateCloud 40s linear infinite;
-    animation-delay: 6s;
-    transform: scale(0.8);
+    animation: animateCloud 33s linear infinite;
+    animation-delay: 5s;
+    transform: scale(0.7);
 }
 
 .speed4 {
-    animation: animateCloud 20s linear infinite;
-    animation-delay: 6s;
+    animation: animateCloud 35s linear infinite;
+    animation-delay: 10s;
     transform: scale(0.4);
 }
 
 .speed5 {
-    animation: animateCloud 35s linear infinite;
-    animation-delay: 6s;
+    animation: animateCloud 40s linear infinite;
+    animation-delay: 3s;
     transform: scale(0.6);
+}
+
+.ground {
+    position: fixed;
+    height: 100px;
+    width: 100vw;
+    bottom: 0;
+    background-color: var(--green);
+}
+
+/*** doel planten ***/ /* flower borderradius bron: https://blog.logrocket.com/using-css-border-radius-make-shapes/*/
+
+.stem {
+    position: absolute;
+    bottom: 100px;
+    width: 8px;
+    height: 50px;
+    background: var(--green);
+    border-radius: 4px 4px 0 0;
+    transition: 0.5s ease-in-out;
+}
+
+.stem:nth-child(1) { left: 20%; }
+.stem:nth-child(2) { left: 50%; }
+.stem:nth-child(3) { left: 80%; }
+
+.stem::before,
+.stem::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 40px;
+    background: var(--green);
+    border-radius: 0 100% 0 100%;
+}
+
+.stem::before {
+    left: -25px;
+    top: 5px;
+    transform: rotate(-30deg);
+}
+
+.stem::after {
+    right: -25px;
+    top: 5px;
+    transform: rotate(-100deg);
+}
+
+.stem:hover,
+.stem.active {
+    height: 80px;
+}
+
+.flower {
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    background: var(--lila);
+    border-radius: 20px;
+    transform: translateX(-50%);
+    transition: 0.5s ease-in-out;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.flower::after,
+.flower::before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    background: var(--lila);
+    border-radius: 20px;
+    transition: 0.5s ease-in-out;
+}
+
+.flower::after {
+    transform: rotate(60deg);
+}
+
+.flower::before {
+    transform: rotate(-60deg);
+}
+
+.stem:hover .flower,
+.stem.active .flower {
+    width: 150px;
+    height: 70px;
+    opacity: 1;
+}
+
+.stem:hover .flower::after,
+.stem:hover .flower::before,
+.stem.active .flower::after,
+.stem.active .flower::before {
+    width: 150px;
+    height: 70px;
+    opacity: 1;
+}
+
+.flower p {
+    margin: 0;
+    padding: 16px;
+    text-align: center;
+    color: var(--dark);
+    font-size: 14px;
+    font-family: "Caladea", serif;
+    font-weight: 700;
+    opacity: 0;
+}
+
+.stem:hover .flower p,
+.stem.active .flower p {
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
+
+@media (max-width: 700px) {
+    h1 {
+        font-size: var(--h2);
+    }
+
+    nav a {
+        width: 6em;
+        height: 3.5em;
+        font-size: 0.8em;
+    }
+
+    label {
+        width: 3em;
+        height: 3em;
+    }
+
+    svg {
+        width: 3em;
+        height: 3em;
+    }
 }
